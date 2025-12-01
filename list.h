@@ -15,41 +15,51 @@ namespace List
 
     void addBef(Item bef, Item ad)
     {
-        link current = h;
-        while (current != nullptr)
+        if (h == nullptr)
+            return;
+        else
         {
-            if (current->key == bef)
+            link current = h;
+            while (current != nullptr)
             {
-                link t = new node(nullptr, ad, nullptr);
-                t->next = current;
-                t->prev = current->prev;
+                if (current->key == bef)
+                {
+                    link t = new node(nullptr, ad, nullptr);
+                    t->next = current;
+                    t->prev = current->prev;
 
-                if (current->prev != nullptr)
-                    current->prev->next = t;
-                else
-                    h = t;
-                current->prev = t;
+                    if (current->prev != nullptr)
+                        current->prev->next = t;
+                    else
+                        h = t;
+                    current->prev = t;
 
-                break;
+                    break;
+                }
+                current = current->next;
             }
-            current = current->next;
         }
     }
     void addAft(Item aft, Item ad)
     {
-        link ha = h;
-        while (ha != nullptr)
+        if (h == nullptr)
+            return;
+        else
         {
-            if (ha->key == aft)
+            link ha = h;
+            while (ha != nullptr)
             {
-                link t = new node(nullptr, ad, nullptr);
-                t->next = ha->next;
-                ha->next->prev = t;
-                ha->next = t;
-                t->prev = ha;
-                break;
+                if (ha->key == aft)
+                {
+                    link t = new node(nullptr, ad, nullptr);
+                    t->next = ha->next;
+                    ha->next->prev = t;
+                    ha->next = t;
+                    t->prev = ha;
+                    break;
+                }
+                ha = ha->next;
             }
-            ha = ha->next;
         }
     }
     void addSta(Item nw)
@@ -94,18 +104,38 @@ namespace List
     }
     void del(Item d)
     {
-        link ha = h;
-        while (ha != nullptr)
+        if (h == nullptr)
+            return;
+        else
         {
-            if (ha->key == d)
+            if (h->key == d && h->next != nullptr)
             {
-                link temp = ha;
-                ha->next->prev = ha->prev;
-                ha->prev->next = ha->next;
+                link temp = h;
+                h->next->prev = nullptr;
+                h = h->next;
                 delete temp;
-                break;
+                return;
             }
-            ha = ha->next;
+            link ha = h;
+            while (ha != nullptr)
+            {
+                if (ha->key == d && ha->next != nullptr)
+                {
+                    link temp = ha;
+                    ha->next->prev = ha->prev;
+                    ha->prev->next = ha->next;
+                    delete temp;
+                    break;
+                }
+                else if (ha->next == nullptr && ha->key == d)
+                {
+                    link temp = ha;
+                    ha->prev->next = ha->next;
+                    delete temp;
+                    break;
+                }
+                ha = ha->next;
+            }
         }
     }
     bool search(Item s)
@@ -118,6 +148,69 @@ namespace List
             ha = ha->next;
         }
         return false;
+    }
+    void delBef(Item bef)
+    {
+        if (h == nullptr)
+            return;
+        else
+        {
+            if (h->key == bef)
+            {
+                return;
+            }
+            link current = h;
+            while (current != nullptr)
+            {
+                if (current->next->key == bef)
+                {
+                    if (current->prev != nullptr)
+                    {
+                        current->prev->next = current->next;
+                    }
+                    else
+                        h = current->next;
+                    if (current->next != nullptr)
+                        current->next->prev = current->prev;
+
+                    delete current;
+                    return;
+                }
+                current = current->next;
+            }
+        }
+    }
+    void delAft(Item aft)
+    {
+        if (h == nullptr)
+            return;
+        else
+        {
+            link ha = h;
+            while (ha->next != nullptr)
+            {
+                if (ha->key == aft)
+                {
+                    if (ha->next->next != nullptr)
+                    {
+                        link temp = ha->next;
+                        ha->next = ha->next->next;
+                        ha->next->next->prev = ha;
+                        delete temp;
+                        return;
+                    }
+                }
+                ha = ha->next;
+            }
+        }
+    }
+    void delSta()
+    {
+
+    }
+    void delEnd()
+    {
+
     }
 }
 #endif
