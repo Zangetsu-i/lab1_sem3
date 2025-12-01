@@ -98,9 +98,16 @@ namespace Flist
     void del(Item d)
     {
         if (h == nullptr)
-            return ;
+            return;
         else
         {
+            if (h->key == d)
+            {
+                link temp = h->next;
+                delete h;
+                h = temp;
+                return;
+            }
             link t = h;
             while (t != nullptr)
             {
@@ -115,7 +122,7 @@ namespace Flist
             }
         }
     }
-    void delBef(Item bef, Item ad)
+    void delBef(Item bef)
     {
         if (h == nullptr)
             return;
@@ -125,13 +132,20 @@ namespace Flist
             {
                 return;
             }
-            link t = h;
-            while (t->next != nullptr)
+            else if (h->next->key == bef)
             {
-                if (t->next->key == bef)
+                link temp = h->next;
+                delete h;
+                h = temp;
+                return;
+            }
+            link t = h;
+            while (t->next->next != nullptr)
+            {
+                if (t->next->next->key == bef)
                 {
-                    link temp = t;
-                    t = t->next;
+                    link temp = t->next;
+                    t->next = t->next->next;
                     delete temp;
                     break;
                 }
@@ -139,19 +153,27 @@ namespace Flist
             }
         }
     }
-    void delAft(Item aft, Item ad)
+    void delAft(Item aft)
     {
         if (h == nullptr)
             return;
         else
         {
-            link t = h;
-            while (t != nullptr)
+            if (h->key == aft && h->next != nullptr)
             {
-                if (t->key == aft && t->next->next != nullptr)
+                link temp = h->next;
+                h->next = h->next->next;
+                delete temp;
+                return;
+            }
+
+            link t = h;
+            while (t->next != nullptr)
+            {
+                if (t->key == aft)
                 {
                     link temp = t->next;
-                    t = t->next->next;
+                    t->next = t->next->next;
                     delete temp;
                     break;
                 }
@@ -159,7 +181,7 @@ namespace Flist
             }
         }
     }
-    void delSta(Item del)
+    void delSta()
     {
         if (h == nullptr)
             return;
@@ -170,7 +192,7 @@ namespace Flist
             h = temp;
         }
     }
-    void delEnd(Item del)
+    void delEnd()
     {
         if (h == nullptr)
             return;
