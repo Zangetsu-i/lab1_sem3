@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <string>
 #include <fstream>
-#include "labhead.h"
+#include "allatd.h"
 std::string current_filename;
 struct Config
 {
