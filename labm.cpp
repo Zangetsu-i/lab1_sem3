@@ -67,7 +67,13 @@ int main(int argc, char *argv[])
             else if(req.request[0] == "PUSHBEFORE")
                 Flist::addBef(stoi(req.request[3]), stoi(req.request[2]));
             else if(req.request[0] == "DELBEFORE")
-                Flist::delBef(stoi(req.request[3]), stoi(req.request[2]));
+                Flist::delBef(stoi(req.request[2]));
+            else if(req.request[0] == "DELAFTER")
+                Flist::delAft(stoi(req.request[2]));
+            else if(req.request[0] == "DELSTART")
+                Flist::delSta();
+            else if(req.request[0] == "DELEND")
+                Flist::delEnd();
             else if(req.request[0] == "PRINT")
                 Flist::printList();
         }
@@ -86,6 +92,14 @@ int main(int argc, char *argv[])
                 List::addAft(stoi(req.request[3]), stoi(req.request[2]));
             else if(req.request[0] == "PUSHBEFORE")
                 List::addBef(stoi(req.request[3]), stoi(req.request[2]));
+            else if(req.request[0] == "DELBEFORE")
+                List::delBef(stoi(req.request[2]));
+            else if(req.request[0] == "DELAFTER")
+                List::delAft(stoi(req.request[2]));
+            else if(req.request[0] == "DELSTART")
+                List::delSta();
+            else if(req.request[0] == "DELEND")
+                List::delEnd();
             else if(req.request[0] == "PRINT")
                 List::printList();
         }
@@ -116,6 +130,11 @@ int main(int argc, char *argv[])
                 Massive::length();
             else if (req.request[0] == "REPLACE")
                 Massive::replace(stoi(req.request[2]), stoi(req.request[3]));
+            else if (req.request[0] == "GET")
+            {
+                Item n = Massive::get(stoi(req.request[2]));
+                std::cout << "Get result: " << n << std::endl;
+            }
             else if (req.request[0] == "PRINT")
                 Massive::printArr();
         }

@@ -1,0 +1,16 @@
+=== MASSIVE ===
+
+=== STACK ===
+
+=== QUEUE ===
+
+=== FLIST ===
+
+=== LIST ===
+
+=== TREE ===
+19 15 14 NULL NULL 16 NULL NULL NULL 
+=== TREE OUTPUT ===
+Straight: 19 15 14 NULL NULL 16 NULL NULL NULL 
+Cross: 15 14 NULL NULL 16 NULL NULL 19 NULL 
+Reverse: 15 14 NULL NULL 16 NULL NULL NULL 19 

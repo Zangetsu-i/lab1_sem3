@@ -53,6 +53,16 @@ void saveFile(const std::string & filename)
     fout << "=== TREE ===" << std::endl;
     Tree::printToFileList(fout);
     fout << std::endl;
+    fout << "=== TREE OUTPUT ===" << std::endl;
+    fout << "Straight: ";
+    Tree::printToFileStraight(fout);
+    fout << std::endl;
+    fout << "Cross: ";
+    Tree::printToFileCross(fout);
+    fout << std::endl;
+    fout << "Reverse: ";
+    Tree::printToFileReverse(fout);
+    fout << std::endl;
     
     fout.close();
     std::cout << "Data saved to " << filename << std::endl;

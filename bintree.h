@@ -152,6 +152,39 @@ namespace Tree
         printToFileList(fout, t->left);
         printToFileList(fout, t->right);
     }
+    void printToFileStraight(std::ofstream& fout, link t = h)
+    {
+        if (t == nullptr) 
+        {
+            // fout << "NULL" << " ";
+            return;
+        }
+        fout << t->key << " ";
+        printToFileList(fout, t->left);
+        printToFileList(fout, t->right);
+    }
+    void printToFileCross(std::ofstream& fout, link t = h)
+    {
+        if (t == nullptr) 
+        {
+            // fout << "NULL" << " ";
+            return;
+        }
+        printToFileList(fout, t->left);
+        fout << t->key << " ";
+        printToFileList(fout, t->right);
+    }
+    void printToFileReverse(std::ofstream& fout, link t = h)
+    {
+        if (t == nullptr) 
+        {
+            // fout << "NULL" << " ";
+            return;
+        }
+        printToFileList(fout, t->left);
+        printToFileList(fout, t->right);
+        fout << t->key << " ";
+    }
 
 
     link loadFromPreorder(std::istringstream& iss) 

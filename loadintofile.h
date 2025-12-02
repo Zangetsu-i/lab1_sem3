@@ -42,6 +42,10 @@ void loadFromFile(const std::string & filename)
             current_section = "TREE";
             continue;
         }
+        else if (line.find("=== TREE OUTPUT ===") != std::string::npos){
+            current_section = "TREE OUTPUT";
+            continue;
+        }
         
         if (current_section == "MASSIVE") 
         {
@@ -144,11 +148,10 @@ void loadFromFile(const std::string & filename)
         {
             if (!line.empty()) {
                 Tree::loadFromString(line);
-                std::cout << "Tree loaded from preorder: " << line << std::endl;
+                // std::cout << "Tree loaded from preorder: " << line << std::endl;
             }
         }
     }
-    
     fin.close();
     std::cout << "Data loaded from " << filename << std::endl;
 }
