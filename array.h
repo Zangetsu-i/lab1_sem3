@@ -76,8 +76,6 @@ namespace Massive
         {
             if (m.ar[m.index] == 0)
                 m.ar[m.index++] = value;
-            else
-                m.ar[++m.index] = value;
         }
     }
 
@@ -103,7 +101,7 @@ namespace Massive
     }
     void replace(int index, int value)
     {
-        if (index > 0 && index < m.length)
+        if (index < m.index - 1 && index < m.length)
             m.ar[index] = value;
         else
             std::cout << "Invalid index!" << std::endl;
