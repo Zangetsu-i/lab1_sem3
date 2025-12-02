@@ -111,6 +111,16 @@ namespace Massive
         std::cout << m.length << std::endl;
         return m.length;
     }
+    Item get(int index)
+    {
+        if (index < m.index - 1)
+        {
+            Item temp = m.ar[index];
+            return temp;
+        }
+        else
+            return Item();
+    }
     void printArr()
     {
         for (int i = 0; i < m.length; i++)
