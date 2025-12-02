@@ -13,32 +13,72 @@ namespace Massive
 
     void create(int len)
     {
-        m.ar = new Item[len];
-        m.length = len;
-        m.index = 0;
-        for (int i = 0; i < len; i++)
-            m.ar[i] = 0;
-
+        Item * arr = new Item[len];
+        if (m.index > 0)
+        {
+            for (int i = 0; i < m.length; i++)
+                arr[i] = m.ar[i];
+            m.ar = arr;
+            m.length = len;
+        }
+        else
+        {
+            m.ar = arr;
+            m.length = len;
+            m.index = 0;
+            for (int i = 0; i < len; i++)
+                m.ar[i] = 0;
+        }
     }
     void addtoind(int inde, int value)
     {
-        if (inde < m.length && inde >= 0)
+        if (inde <= m.length && inde <= m.index)
         {
-            m.ar[inde] = value;
-            m.index = inde;
+            if (inde == m.length)
+                create(m.length * 2);
+            
+            m.index++;
+
+            if (m.ar[inde] == 0)
+                m.ar[inde] = value;
+            else if (m.index >= m.length)
+            {
+                create(m.length * 2);
+                Item temp = m.ar[inde];
+                for (int i = inde + 1; i < m.length - 1; i++)
+                {
+                    Item temp1 = m.ar[i];
+                    m.ar[i] = temp;
+                    temp = temp1;
+                }
+                m.ar[inde] = value;
+            }
+            else 
+            {
+                Item temp = m.ar[inde];
+                for (int i = inde + 1; i < m.length - 1; i++)
+                {
+                    Item temp1 = m.ar[i];
+                    m.ar[i] = temp;
+                    temp = temp1;
+                }
+                m.ar[inde] = value;
+            }
         }
-        else
-            std::cout << "Index biger index!" << std::endl;
     }
 
     void addtoend(int value)
     {
         if (m.index >= m.length)
-            std::cout << "Massive full" << std::endl;
-        else if (m.ar[m.index] == 0)
-            m.ar[m.index++] = value;
-        else
-            m.ar[++m.index] = value;
+            create(m.length * 2);
+        
+        if (m.index <= m.length)
+        {
+            if (m.ar[m.index] == 0)
+                m.ar[m.index++] = value;
+            else
+                m.ar[++m.index] = value;
+        }
     }
 
     void delInd(int inde)
