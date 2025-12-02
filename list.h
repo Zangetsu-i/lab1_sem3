@@ -116,6 +116,12 @@ namespace List
                 delete temp;
                 return;
             }
+            else if (h->next == nullptr && h->key == d)
+            {
+                delete h;
+                h = nullptr;
+                return;
+            }
             link ha = h;
             while (ha != nullptr)
             {
@@ -206,11 +212,44 @@ namespace List
     }
     void delSta()
     {
-
+        if (h == nullptr)
+            return;
+        else if (h->next == nullptr)
+        {
+            delete h;
+            h = nullptr;
+            return;
+        }
+        else
+        {
+            link temp = h;
+            h->next->prev = nullptr;
+            h = h->next;
+            delete temp;
+        }
     }
     void delEnd()
     {
-
+        if (h == nullptr)
+            return;
+        else
+        {
+            link current = h;
+            while (current->next != nullptr)
+                current = current->next;
+            link temp = current;
+            if (current->prev != nullptr)
+            {
+                current->prev->next = nullptr;
+                delete temp;
+                return;
+            }
+            else
+            {
+                delete h;
+                h = nullptr;
+            }
+        }
     }
 }
 #endif
